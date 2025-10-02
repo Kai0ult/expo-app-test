@@ -1,46 +1,42 @@
 import { StatusBar } from 'expo-status-bar'
-import { Pressable, TouchableOpacity } from 'react-native'
-import { StyleSheet, Text, View } from 'react-native'
-import { styles } from './src/styles/App.styles'
-import { KeyboardAvoidingView, Platform, ScrollView } from 'react-native'
-import { click } from './src/features/buttonClick'
-import { Fragment, useState } from 'react'
+import { StyleSheet, View, FlatList, KeyboardAvoidingView, Platform } from 'react-native'
+import { useState } from 'react'
+import { styles } from './src/styles/App.styles.js'
 import Post from './src/components/Post.js'
 
-
 export default function App() {
-  const [count, setCount] = useState(0)
-  return (
-    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <ScrollView style={styles.scrollView}>
-        <Post title="Dog do MEME"></Post> 
-        <Post title="Dog do MEME"></Post> 
-        <Post title="Dog do MEME"></Post> 
-        <Post title="Dog do MEME"></Post> 
-        <Post title="Dog do MEME"></Post> 
-        <Post title="Dog do MEME"></Post> 
-        <Post title="Dog do MEME"></Post> 
-        <Post title="Dog do MEME"></Post> 
-        <Post title="Dog do MEME"></Post> 
-        <Post title="Dog do MEME"></Post>    
-        
-        {/*<View>
-          <Text style={styles.title}>Valor: {count}</Text>
-          <View>
-            <StatusBar style="light" />
-            <TouchableOpacity style={styles.button1} onPress={() => click("mais", count, setCount)}>
-              <Text style={styles.titleButton}>+</Text>
-            </TouchableOpacity>
-          </View>
-          <View>
-            <TouchableOpacity style={styles.button2} onPress={() => click("menos", count, setCount)}>
-              <Text style={styles.titleButton}>-</Text>
-            </TouchableOpacity>
-          </View>
-        </View>*/}
+  const [posts, setPosts] = useState(
+    Array.from({ length: 50 }, (_, i) => ({
+      id: i.toString(),
+      title: `Post do DOGE #${i + 1}`
+    }))
+  )
 
-      </ScrollView>
-    </KeyboardAvoidingView>
+  const loadMorePosts = () => {
+    const newPosts = Array.from({ length: 50 }, (_, i) => ({
+      id: (posts.length + i).toString(),
+      title: `Post do DOGE #${posts.length + i + 1}`
+    }))
+    setPosts([...posts, ...newPosts])
+  }
+
+  return (
+    <View style={styles.back}>
+      <StatusBar style="light" />
+
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
+        <FlatList
+          data={posts}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => <Post title={item.title} />}
+          onEndReached={loadMorePosts}
+          onEndReachedThreshold={0.2}
+        />
+      </KeyboardAvoidingView>
+    </View>
   )
 }
 

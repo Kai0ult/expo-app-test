@@ -1,24 +1,30 @@
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
+    back: {
+        flex: 1,
+        backgroundColor: 'rgba(49, 41, 93, 1)',
+    },  
     container: {
         flex: 1,
-        backgroundColor: 'rgba(26, 22, 50, 0.96)',
+        backgroundColor: 'rgba(49, 41, 93, 0.91)',
         alignItems: 'center',
         justifyContent: 'center',
-
+        maxHeight: 1050,
+        alignContent: 'center',
     },
     title: {
         color: '#ffff',
         fontSize: 20,
         fontWeight: 'bold',
         backgroundColor: 'rgba(18, 146, 237, 1)',
-        padding: 20,
+        padding: 10,
         borderRadius: 10,
         borderColor: '#000000ff',
-        marginTop: 10,
-        marginBottom: 16,
+        marginTop: 40,
+        marginBottom: 7,
         textAlign: 'center',
+        maxWidth: 300,
     },
     titleButton: {
         color: '#000000ff',
@@ -51,6 +57,19 @@ export const styles = StyleSheet.create({
         width: 300,
         height: 300,
         borderRadius: 10,
+    },
+    text: {
+        backgroundColor: 'rgba(84, 87, 102, 1)',
+        color: '#ffff',
+        fontSize: 14,
+        fontWeight: 'light',
+        marginTop: 10,
+        marginBottom: 10,
+        borderBottomWidth: 2,
+        borderBottomColor: '#ffff',
+        maxWidth: 300,
+        padding: 4,
+        textAlign: 'justify',
     }
 
 });
